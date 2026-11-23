@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CogniStream | Developer Productivity</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><span class="brand-mark">◉</span><span>CogniStream</span></div>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="nav">
+        <button class="nav-link active" data-page="dashboard"><span>▦</span> Dashboard</button>
+        <button class="nav-link" data-page="flow"><span>⌁</span> Flow Analytics</button>
+        <button class="nav-link" data-page="activity"><span>◷</span> Developer Activity</button>
+        <button class="nav-link" data-page="interruptions"><span>⌁</span> Interruptions</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="profile-avatar">AG</div>
+        <div><strong>Developer</strong><small>Personal workspace</small></div>
+        <button class="icon-button" id="themeToggle" title="Toggle theme">◐</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu icon-button" id="menuToggle" aria-label="Open menu">☰</button>
+        <div><div class="eyebrow">OVERVIEW / <span id="crumb">DASHBOARD</span></div><h1 id="pageTitle">Developer Dashboard</h1></div>
+        <div class="top-actions">
+          <span class="live-dot">● Live demo</span>
+          <button class="button button-quiet" id="exportBtn">↓ Export report</button>
+        </div>
+      </header>
+
+      <section class="page active-page" id="page-dashboard">
+        <div class="welcome-row">
+          <div><h2>Your work, in focus.</h2><p>Understand your development habits and protect your flow state.</p></div>
+          <label class="select-wrap">Period
+            <select id="periodSelect"><option value="today">Today</option><option value="week" selected>This week</option><option value="month">This month</option></select>
+          </label>
+        </div>
+        <div class="kpi-grid">
+          <article class="kpi-card"><div class="kpi-top"><span>Total commits</span><span class="kpi-icon cyan">⌘</span></div><strong id="commitsKpi">128</strong><small class="positive">↑ 12% <span>vs previous period</span></small></article>
+          <article class="kpi-card"><div class="kpi-top"><span>IDE hours</span><span class="kpi-icon purple">◷</span></div><strong id="hoursKpi">6.5h</strong><small class="positive">↑ 8% <span>vs previous period</span></small></article>
+          <article class="kpi-card"><div class="kpi-top"><span>Flow state</span><span class="kpi-icon green">⌁</span></div><strong id="flowKpi">75%</strong><small class="positive">↑ 5% <span>vs previous period</span></small></article>
+          <article class="kpi-card"><div class="kpi-top"><span>Interruptions</span><span class="kpi-icon orange">↯</span></div><strong id="interruptKpi">12</strong><small class="negative">↓ 3 <span>vs previous period</span></small></article>
+        </div>
+        <div class="content-grid">
+          <article class="panel chart-panel"><div class="panel-heading"><div><h3>Productivity overview</h3><p>Focused hours and completed work</p></div><span class="tag">WEEKLY</span></div><canvas id="productivityChart" height="230"></canvas></article>
+          <article class="panel"><div class="panel-heading"><div><h3>Focus score</h3><p>Your uninterrupted work ratio</p></div></div><div class="score-wrap"><div class="score-ring"><div><strong id="scoreText">75%</strong><small>FOCUS</small></div></div></div><div class="legend-row"><span><i class="dot dot-cyan"></i> Focus time</span><b>75%</b></div><div class="legend-row"><span><i class="dot dot-muted"></i> Interrupted</span><b>25%</b></div></article>
+        </div>
+        <div class="content-grid lower-grid">
+          <article class="panel"><div class="panel-heading"><div><h3>Recent activity</h3><p>Latest developer events</p></div><button class="text-button" data-go="activity">View all →</button></div><div class="activity-list" id="recentActivity"></div></article>
+          <article class="panel"><div class="panel-heading"><div><h3>Focus recommendations</h3><p>Small improvements for better flow</p></div></div><div class="recommendation"><span class="rec-icon">✦</span><div><b>Try a focus block</b><p>Work for 25 minutes with notifications paused.</p></div></div><div class="recommendation"><span class="rec-icon purple">☾</span><div><b>Protect your peak hours</b><p>Schedule complex tasks when your energy is highest.</p></div></div><div class="recommendation"><span class="rec-icon orange">↯</span><div><b>Review interruptions</b><p>Group small messages into planned check-in times.</p></div></div></article>
+        </div>
+      </section>
+
+      <section class="page" id="page-flow">
+        <div class="page-intro"><h2>Flow Analytics</h2><p>Track how consistently you stay focused during development sessions.</p></div>
+        <div class="kpi-grid three"><article class="kpi-card"><span>Average focus session</span><strong>52 min</strong><small class="positive">↑ 6 min this week</small></article><article class="kpi-card"><span>Deep work time</span><strong>18.4h</strong><small>Across 5 working days</small></article><article class="kpi-card"><span>Best focus day</span><strong>Wednesday</strong><small class="positive">82% focus score</small></article></div>
+        <article class="panel chart-panel"><div class="panel-heading"><div><h3>Daily flow score</h3><p>Percentage of work time spent in focused state</p></div><span class="tag">THIS WEEK</span></div><canvas id="flowChart" height="260"></canvas></article>
+        <div class="content-grid"><article class="panel"><h3>What is flow state?</h3><p class="body-copy">Flow state is a period of deep concentration where you can work with fewer distractions. This demo estimates focus using sample session data.</p></article><article class="panel"><h3>Flow improvement target</h3><div class="target-row"><strong>85%</strong><span>Target focus score</span></div><div class="progress"><span style="width:75%"></span></div><p class="muted">You are 10 percentage points away from your target.</p></article></div>
+      </section>
+
+      <section class="page" id="page-activity">
+        <div class="page-intro"><h2>Developer Activity</h2><p>A simple timeline of coding sessions and development events.</p></div>
+        <div class="toolbar"><input id="activitySearch" type="search" placeholder="Search activity..."><select id="activityFilter"><option value="all">All activity</option><option value="coding">Coding</option><option value="commit">Commit</option><option value="meeting">Meeting</option></select><button class="button button-primary" id="addActivityBtn">＋ Add activity</button></div>
+        <article class="panel"><div class="table-wrap"><table><thead><tr><th>Activity</th><th>Category</th><th>Time</th><th>Duration</th><th>Status</th></tr></thead><tbody id="activityTable"></tbody></table></div></article>
+      </section>
+
+      <section class="page" id="page-interruptions">
+        <div class="page-intro"><h2>Interruptions</h2><p>Identify common distractions and plan ways to reduce them.</p></div>
+        <div class="kpi-grid three"><article class="kpi-card"><span>Total interruptions</span><strong>12</strong><small>Sample data this week</small></article><article class="kpi-card"><span>Most common</span><strong>Messages</strong><small>5 interruptions</small></article><article class="kpi-card"><span>Estimated lost time</span><strong>1.8h</strong><small>Based on sample data</small></article></div>
+        <div class="content-grid"><article class="panel chart-panel"><div class="panel-heading"><div><h3>Interruption sources</h3><p>Where distractions come from</p></div></div><canvas id="interruptChart" height="240"></canvas></article><article class="panel"><h3>Ways to reduce interruptions</h3><div class="tip"><b>1. Batch notifications</b><p>Check messages at planned intervals instead of continuously.</p></div><div class="tip"><b>2. Use focus mode</b><p>Mute non-essential notifications during deep work.</p></div><div class="tip"><b>3. Set clear availability</b><p>Let teammates know when you are available for questions.</p></div></article></div>
+      </section>
+
+      <footer>CogniStream <span>•</span> Developer Flow & Productivity Dashboard <span class="footer-note">Demo project — sample data, not connected to Git or an IDE.</span></footer>
+    </main>
+  </div>
+
+  <dialog id="activityDialog">
+    <form method="dialog" id="activityForm">
+      <div class="dialog-head"><div><h3>Add activity</h3><p>Save a new event to this browser.</p></div><button class="icon-button" value="cancel" aria-label="Close">✕</button></div>
+      <label>Activity name<input id="newActivityName" required placeholder="e.g. Fixed login page bug"></label>
+      <label>Category<select id="newActivityCategory"><option value="coding">Coding</option><option value="commit">Commit</option><option value="meeting">Meeting</option></select></label>
+      <label>Duration (minutes)<input id="newActivityDuration" type="number" min="1" max="600" value="30" required></label>
+      <button class="button button-primary full" type="submit">Save activity</button>
+    </form>
+  </dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
